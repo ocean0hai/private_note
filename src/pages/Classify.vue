@@ -2,7 +2,7 @@
 import DialogAdd from "@/components/classify/DialogAdd.vue";
 import { noteData } from "@/store";
 import { useRouter } from "vue-router";
-import { ref, onMounted, computed } from "vue";
+import { ref, computed } from "vue";
 const router = useRouter();
 const { classifyArr, deleteClassify } = noteData();
 const manage = ref(false);
@@ -37,7 +37,7 @@ function filterData(str: string) {
         <!-- :style="{fontSize:`${bindCss['textsize']}px`,color:`${arrBg[bindCss['textcolor']]}`}"  -->
         <span>{{ item.text }}</span>
         <span class="ml-3" v-if="manage">
-          <van-icon @click="deleteClassify(item.text)" name="delete-o" />
+          <van-icon @click="deleteClassify(item.id)" name="delete-o" />
         </span>
       </div>
     </div>

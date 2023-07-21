@@ -1,8 +1,9 @@
 import { defineStore } from "pinia";
 import { showFailToast, showSuccessToast } from "vant";
 import { objType } from "@/type";
-import { ref, computed, watch } from "vue";
-interface checkType {
+import { ref } from "vue";
+import { Random } from "@/uitls/getRandom";
+interface checkType extends objType {
   key: string;
   value: string;
   operate: string;
@@ -59,38 +60,45 @@ const noteData = defineStore(
     ]);
     //历史记录
     const history = ref<Array<string>>(["吃饭", "睡觉", "打代码"]);
-    const classifyArr = ref<Array<string>>([
+    const classifyArr = ref<Array<any>>([
       {
+        id: "1",
         text: "默认",
         uid: "1",
         class: "blue",
       },
       {
+        id: "2",
         text: "默认",
         uid: "2",
         class: "blue",
       },
       {
+        id: "3",
         text: "饮食",
         uid: "2",
         class: "green",
       },
       {
+        id: "4",
         text: "日记",
         uid: "2",
         class: "red",
       },
       {
+        id: "5",
         text: "作息",
         uid: "2",
         class: "green",
       },
       {
+        id: "6",
         text: "工作",
         uid: "1",
         class: "pink",
       },
       {
+        id: "7",
         text: "生活",
         uid: "1",
         class: "blue",
@@ -100,7 +108,7 @@ const noteData = defineStore(
     //标签遍历函数
     function dataCheck({ key, value, operate }: checkType) {
       let check = true;
-      const uid=localStorage.getItem('uid')
+      const uid = localStorage.getItem("uid");
       data.value.map((item: any) => {
         if (item[key] === value) {
           if (item.uid === uid && operate === "uid") {
@@ -114,12 +122,10 @@ const noteData = defineStore(
     }
     //对数据进行操作
     function addData(dataitem: any) {
-
       if (dataCheck({ key: "title", value: dataitem.title, operate: "uid" })) {
         data.value.push(dataitem);
         showSuccessToast("保存成功！！");
         console.log(data.value);
-        
       } else showFailToast("保存失败!!");
     }
 
@@ -135,11 +141,15 @@ const noteData = defineStore(
       }
     }
     function editData(newItem: objType) {
-      data.value.forEach((item: any) => {
-        if (item.id == newItem.id) {
-          item = { ...newItem };
-        }
+      const da = new Date();
+      let iid = -1;
+      data.value.map((item: any, i: number) => {
+        if (item.id === newItem.id) iid = i;
       });
+      data.value.splice(iid, 1);
+      newItem["time"] = da.getMonth() + 1 + "-" + da.getDate();
+      data.value.push(newItem);
+      console.log(data.value);
     }
     //对历史记录操作
     function deleteHistory(id: number) {
@@ -155,8 +165,7 @@ const noteData = defineStore(
 
     //对分类标签的类型
     function addClassObj(classitem: objType) {
-      
-      const uid=localStorage.getItem('uid')+""
+      const uid = localStorage.getItem("uid") + "";
       let add = false;
       classifyArr.value.map((item: any) => {
         if (item.text === classitem.text && uid === item.uid) {
@@ -166,17 +175,15 @@ const noteData = defineStore(
       });
       if (add === false) {
         classitem["uid"] = uid;
+        classitem['id']=Random()+''
         classifyArr.value.push(classitem);
-        console.log(classifyArr.value);
-        
         return true;
       } else return false;
     }
-    function deleteClassify(text: string) {
-            const uid=localStorage.getItem('uid')
+    function deleteClassify(iid:string) {
       let id = -1;
       classifyArr.value.map((item: any, i: number) => {
-        if (item.uid === uid && item.text === text) {
+        if (item.id===iid) {
           id = i;
         }
       });

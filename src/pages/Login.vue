@@ -2,10 +2,8 @@
 import { ref, computed } from "vue";
 import Input from "@/components/common/Input.vue";
 import { loginData } from "@/store";
-import {useRuouter} from 'vue-router'
-import router from "@/router";
 const store = loginData();
-const children = ref(null);
+const children = ref();
 const login = ref(true);
 const inputArr = ref([
   {

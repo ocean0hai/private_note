@@ -5,7 +5,7 @@ import { showSuccessToast, showFailToast } from "vant";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import noteData from "./notedata.ts";
-const { addClassObj,classifyArr } = noteData();
+const { classifyArr } = noteData();
 interface loginType {
   username: string;
   password: string;

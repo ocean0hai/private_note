@@ -1,6 +1,7 @@
 <script setup lang="ts" >
 import { ref } from "vue";
 import { noteData } from "@/store";
+import { objType } from "@/type";
 import { showToast } from "vant";
 const { addClassObj } = noteData();
 const show = ref(false);
@@ -31,7 +32,7 @@ const colorArr = ref([
     text: "黑色",
   },
 ]);
-const classObj = ref({
+const classObj = ref<objType>({
   text: "",
   class: "blue",
 });

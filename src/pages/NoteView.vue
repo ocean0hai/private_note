@@ -1,16 +1,13 @@
 <script lang="ts" setup>
 import { useRouter, useRoute } from "vue-router";
-import { computed, ref } from "vue";
+import {  ref } from "vue";
 import { noteData } from "@/store";
 const route = useRoute();
 const router = useRouter();
 const { data, classifyArr, editData } = noteData();
 const edit = ref(false);
-const renderData = computed(() => {
-  const Arr = data.filter(item => item.title === route.query.str);
-  return Arr[0];
-});
 
+const obj=ref({...data.filter(item => item.title === route.query.str)[0]})
 function onClickLeft() {
   router.go(-1);
 }
@@ -18,15 +15,13 @@ function editCheck() {
   edit.value = !edit.value;
 }
 function saveNote() {
-  const da = new Date();
-  renderData.value["time"] = da.getMonth() + 1 + "-" + da.getDate();
-  editData(renderData.value);
+  editData(obj.value)
   edit.value = false;
 }
 </script>
 
 <template>
-  <div v-if="renderData !=={}">
+  <div v-if="JSON.stringify(obj)">
     <van-nav-bar
       title="视图"
       left-text="返回"
@@ -39,26 +34,26 @@ function saveNote() {
     </van-nav-bar>
     <div v-if="!edit" class="w-auto mx-2">
       <div class="w-full text-center text-xl font-bold">
-        {{ renderData.title }}
+        {{ obj.title }}
       </div>
       <div class="text-center text-gray-400">
-        分类：<span class="mr-3">{{ renderData.classify }}</span> 时间：<span>{{
-          renderData.time
+        分类：<span class="mr-3">{{ obj.classify }}</span> 时间：<span>{{
+          obj.time
         }}</span>
       </div>
       <div class="whitespace-pre-wrap">
-        {{ renderData.note }}
+        {{ obj.note }}
       </div>
     </div>
     <div v-else>
       <div class="mx-3 my-3 flex">
         标题：<input
           class="w-2/5 mr-3"
-          v-model="renderData['title']"
+          v-model="obj['title']"
           type="text"
         />
         分类：
-        <select class="ml-1" v-model="renderData['classify']">
+        <select class="ml-1" v-model="obj['classify']">
           <option v-for="(item, i) in classifyArr" :value="item.text" :key="i">
             {{ item.text }}
           </option>
@@ -67,11 +62,11 @@ function saveNote() {
       <div class="w-auto mx-3">
         <textarea
           class="w-full h-full"
-          v-model="renderData['note']"
+          v-model="obj['note']"
           name=""
           id=""
-          cols="30"
-          rows="10"
+          cols=""
+          rows="30"
         ></textarea>
       </div>
       <div

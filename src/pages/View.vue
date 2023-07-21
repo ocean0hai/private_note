@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { noteData } from "@/store";
 import { useRouter } from "vue-router";
 const router = useRouter();

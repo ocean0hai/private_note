@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { noteData } from "@/store";
-import { ref, onMounted, computed } from "vue";
+import { ref, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 const route = useRoute();
 const router = useRouter();
@@ -29,7 +29,7 @@ function goView(str: string) {
       left-text="返回"
       left-arrow
       @click-left="router.go(-1)"
-      :title="str"
+      title="管理"
     >
       <template #right>
         <span @click="manage = !manage">{{

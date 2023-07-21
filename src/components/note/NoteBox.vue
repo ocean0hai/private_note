@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import router from "@/router/index.js";
 import { objType } from "@/type";
-import { useRouter } from "vue-router";
 const { dataitem } = defineProps<{
   dataitem: objType;
 }>();

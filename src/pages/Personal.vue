@@ -15,7 +15,7 @@ const inputArr = ref([
   {
     label: "原密码",
     name: "oldpasswd",
-    text: "请输入原密码",
+    text: "原密码认证",
   },
   {
     label: "新密码",

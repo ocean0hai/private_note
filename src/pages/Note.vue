@@ -1,10 +1,9 @@
 <script lang="ts" setup>
-import { ref, watch,computed, onMounted } from "vue";
+import { ref ,computed } from "vue";
 import NoteBox from "@/components/note/NoteBox.vue";
-const searchValue = ref("");
 import { noteData } from "@/store";
 import router from "@/router/index";
-const { data, history } = noteData();
+const { data } = noteData();
 const operatData = ref([
   {
     id: "search",
@@ -18,7 +17,6 @@ const operatData = ref([
   },
 ]);
 const renderData = computed(()=>{
-  
   return [...data.filter((item:any)=> item.uid===localStorage.getItem('uid'))]
 })
 function changeRouter(str: string) {
@@ -47,7 +45,7 @@ function changeRouter(str: string) {
 
   <!-- 增加按钮 -->
   <div
-    @click="changeRouter('editnote')"
+    @click="changeRouter('/home/editnote')"
     class="rounded-full bg-blue-400 text-white py-4 px-6 top-[80%] left-[80%] text-2xl absolute"
   >
     +

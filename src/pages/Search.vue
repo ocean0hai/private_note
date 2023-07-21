@@ -9,17 +9,17 @@ const { data, history, deleteHistory, addHistory } = noteData();
 const searchValue = ref("");
 const showHistory = ref(false);
 const renderData = ref<Array<any>>([]);
-const searchArr = ref([]);
-const children = ref(null);
+const searchArr = ref<Array<any>>([]);
+const children:any = ref(null);
 onMounted(() => {
   searchArr.value = history;
   children.value.focus();
 });
 
 watch([searchValue], () => {
-  searchArr.value = history.filter((item) =>
+  searchArr.value =[... history.filter((item) =>
     new RegExp(searchValue.value).test(item)
-  );
+  )]
 });
 
 function onFocus() {

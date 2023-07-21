@@ -2,8 +2,9 @@
 import { useRouter} from "vue-router";
 import { noteData } from "@/store";
 import { ref, computed } from "vue";
+import { objType } from "@/type";
 const store = noteData();
-const { classifyArr, addData, data, editData } = store;
+const { classifyArr, addData } = store;
 const router = useRouter();
 const Arrs = computed(() => {
   const Arr= [
@@ -12,7 +13,7 @@ const Arrs = computed(() => {
   noteitem.value.classify=Arr[0].text
   return Arr
 });
-const noteitem = ref({
+const noteitem = ref<objType>({
   classify: "",
   note: "",
   title: "",
@@ -24,8 +25,8 @@ function onClickLeft() {
 
 function saveNote() {
   const da = new Date();
-  noteitem.value["uid"] = localStorage.getItem("uid");
-  noteitem.value["time"] = da.getMonth() + 1 + "-" + da.getDate();
+  noteitem.value["uid"] = ""+localStorage.getItem("uid");
+  noteitem.value["time"] = ''+da.getMonth() + 1 + "-" + da.getDate();
   addData(noteitem.value);
 }
 </script>
