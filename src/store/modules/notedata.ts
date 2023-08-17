@@ -203,7 +203,7 @@ const noteData = defineStore(
     };
   },
   {
-    persist: false,
+    persist: true,
   }
 );
 export default noteData;

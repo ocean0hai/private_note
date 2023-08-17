@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { useRouter} from "vue-router";
+import { useRouter } from "vue-router";
 import { noteData } from "@/store";
 import { ref, computed } from "vue";
 import { objType } from "@/type";
@@ -7,11 +7,11 @@ const store = noteData();
 const { classifyArr, addData } = store;
 const router = useRouter();
 const Arrs = computed(() => {
-  const Arr= [
+  const Arr = [
     ...classifyArr.filter((item) => item.uid === localStorage.getItem("uid")),
   ];
-  noteitem.value.classify=Arr[0].text
-  return Arr
+  noteitem.value.classify = Arr[0].text;
+  return Arr;
 });
 const noteitem = ref<objType>({
   classify: "",
@@ -25,8 +25,8 @@ function onClickLeft() {
 
 function saveNote() {
   const da = new Date();
-  noteitem.value["uid"] = ""+localStorage.getItem("uid");
-  noteitem.value["time"] = ''+da.getMonth() + 1 + "-" + da.getDate();
+  noteitem.value["uid"] = "" + localStorage.getItem("uid");
+  noteitem.value["time"] = "" + da.getMonth() + 1 + "-" + da.getDate();
   addData(noteitem.value);
 }
 </script>

@@ -1,23 +1,11 @@
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import Input from "@/components/common/Input.vue";
 import { loginData } from "@/store";
 const store = loginData();
 const children = ref();
 const login = ref(true);
 const inputArr = ref([
-  {
-    name: "username",
-    text: "请输入账号(username:123)",
-    icon: "user-o",
-  },
-  {
-    name: "password",
-    text: "请输入用户名(password:123)",
-    icon: "lock",
-  },
-]);
-const registerArr = ref([
   {
     name: "username",
     text: "请输入账号",
@@ -29,11 +17,8 @@ const registerArr = ref([
     icon: "lock",
   },
 ]);
-const renderData = computed(() => {
-  if (login) {
-    return inputArr.value;
-  } else return registerArr.value;
-});
+
+
 
 function changeLogin() {
   const { inputObj } = children.value;
@@ -51,7 +36,7 @@ function changeLogin() {
       <Input
         ref="children"
         class="mt-3 border-solid border-2 border-gray-300 rounded-3xl w-auto mx-10"
-        :data="renderData"
+        :data="inputArr"
       ></Input>
       <div @click="changeLogin" class="w-auto mx-20 py-10">
         <van-button round class="w-full" type="primary">{{

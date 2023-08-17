@@ -1,14 +1,15 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 const routes = [
   {
     path: "/",
-    redirect: "/login",
-  },
-  {
-    path: "/login",
-    name: "login",
+    // redirect: "/login",
     component: () => import("@/pages/Login.vue"),
   },
+  // {
+  //   path: "/login",
+  //   name: "login",
+  //   component: () => import("@/pages/Login.vue"),
+  // },
   {
     path: "/home",
     redirect: "/home/note",
@@ -59,7 +60,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes,
 });
 
